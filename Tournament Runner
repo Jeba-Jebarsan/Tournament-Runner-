@@ -1,2 +1,54 @@
-# Tournament-Runner-
-Tournament Runner using python
+import random
+
+# List of teams participating in the FIFA World Cup
+teams = ["Brazil", "Germany", "France", "Argentina", "Spain", "Italy", "England", "Portugal"]
+
+# Simulate round-robin group stage
+group_stage_matches = []
+for i in range(len(teams)):
+    for j in range(i + 1, len(teams)):
+        match = (teams[i], teams[j])
+        winner = random.choice(match)
+        group_stage_matches.append((match, winner))
+
+# Display group stage results
+print("FIFA World Cup 2022 - Group Stage Results\n")
+for match, winner in group_stage_matches:
+    print(f"{match[0]} vs {match[1]}: {winner} wins")
+
+# Points table
+points_table = {team: 0 for team in teams}
+for match, winner in group_stage_matches:
+    points_table[winner] += 3  # Award 3 points for a win
+
+print("\nPoints Table:")
+for team, points in points_table.items():
+    print(f"{team}: {points} points")
+
+# Sort teams by points (you can use a more sophisticated sorting algorithm)
+sorted_teams = sorted(teams, key=lambda team: points_table[team], reverse=True)
+
+# Display qualified teams for the knockout stage (top 4)
+print("\nQualified Teams for Knockout Stage:")
+for i in range(4):
+    print(f"{i + 1}. {sorted_teams[i]}")
+
+# Simulate knockout stage matches (semi-finals and final)
+semi_finals = []
+for i in range(0, 4, 2):
+    semi_final_match = (sorted_teams[i], sorted_teams[i + 1])
+    winner = random.choice(semi_final_match)
+    semi_finals.append((semi_final_match, winner))
+
+# Display semi-final results
+print("\nSemi-final Results:")
+for match, winner in semi_finals:
+    print(f"{match[0]} vs {match[1]}: {winner} wins")
+
+# Simulate the final match
+final_match = (semi_finals[0][1], semi_finals[1][1])
+winner = random.choice(final_match)
+
+# Display the World Cup winner
+print("\nFIFA World Cup 2022 - Winner:")
+print(f"The FIFA World Cup 2022 is won by {winner}!")
